@@ -139,7 +139,7 @@ Can be raised either in proxy endpoint or target endpoint
 * * If set to true, policy will not enter error state and hence no faultrules wil be executed. 
 * * In this case next policy will be executed where application needs to handle the error using conditional policies 
 
-# All policies mentioned from this point onward need you to refer "reference" section of the documentation page.
+# All policies mentioned from this point onward need you to refer [reference](https://docs.apigee.com/api-platform/reference/policies/reference-overview-policy) section of the documentation page.
 
 # Mediation 
 
