@@ -171,11 +171,74 @@ There are some nice videos on this topic and all are consolidated on [this page]
 > Used for long-term caching or with backends where data does not change frequently        
 > Can only be applied to proxy endpoint preflow request and target endpoint postflow response and only once in request or response.     
 > Needs to be added at both places if manual coding , this is done by the UI itself in portal when added to anyone.      
-* Key Value Map Operations
+* Key Value Map Operations     
+> [KVM Overview](https://docs.apigee.com/api-platform/cache/key-value-maps)   
+> [Creating KVM](https://docs.apigee.com/api-platform/cache/creating-and-editing-environment-keyvalue-maps)
 
 # Logging  
 
-# Rate Limiting and Quotas 
+# Rate Limiting and Quotas    
+
+### Quota Policy     
+* Place quota policy after authentication to ensure quota are calculated for each app/developers.
+* This count is over a priod, but it does not say if this quota can be consumed in 1sec or in 1 month. This is the prime difference between this and spikearrest   
+* This policy allows assigning different weights to different request ex setting GET to 0 or setting POST to 2. This will mean that each GET request will count as 1 towards quota while POST will count as 2.   
+```
+<Quota async="false" continueOnError="false" enabled="true" name="Quota-3" type="calendar"> 
+   <DisplayName>Quota 3</DisplayName> 
+
+<!-- This count is over a priod, but it does not say if this quota can be consumed in 1sec or in 1 month. This is the prime difference between this and spikearrest --> 
+   <Allow count="2000" countRef="verifyapikey.VerifyAPIKey.apiproduct.developer.quota.limit"/> 
+   <Allow> 
+      <Class ref="request.queryparam.time_variable"> 
+        <Allow class="peak_time" count="5000"/> 
+        <Allow class="off_peak_time" count="1000"/> 
+      </Class> 
+   </Allow> 
+
+<!-- count, interval and timeunit can refer attributes in product like verifyapikey.{policy_name}.apiproduct.{attribute} -->  
+   <Interval ref="verifyapikey.VerifyAPIKey.apiproduct.developer.quota.interval">1</Interval>  
+   <TimeUnit ref="verifyapikey.VerifyAPIKey.apiproduct.developer.quota.timeunit">month</TimeUnit> 
+   <StartTime>2017-7-16 12:00:00</StartTime>  
+   <Distributed>false</Distributed>  
+   <Synchronous>false</Synchronous>  
+   <AsynchronousConfiguration>  
+      <SyncIntervalInSeconds>20</SyncIntervalInSeconds>  
+      <SyncMessageCount>5</SyncMessageCount>  
+   </AsynchronousConfiguration>  
+   <Identifier/>  
+
+<!-- by default all requests cout as 1 , but using message weight different weights can be assigned to different request ex setting GET to 0 or setting POST to 2. To make it work, first a policy needs to set a weight for request in a flow variable, which then is referred in MessageWeight --> 
+   <MessageWeight/>  
+</Quota> 
+```
+
+### SpikeArrest Policy
+* This should be first policy in the proxy to guard against unusual spikes. 
+* Important point to note is that, whatever value is provided in rate is smoothed out to 1 request per unit I.e 6pm means 1 request per 10sec, 10ps means 1 request per 100ms. Proxy will then not allow 2nd request within 10secs in first case and 100ms in 2nd case     
+* Downside is that no matter what value is provided, concurrent requests are most likely to fail        
+```
+<SpikeArrest 
+  continueOnError="[false|true]" 
+  enabled="[true|false]" 
+  name="policy_name" 
+> 
+  <DisplayName>display_name</DisplayName> 
+  <Properties/> 
+  <Identifier ref="flow_variable"/> 
+  <MessageWeight ref="flow_variable"/> 
+
+<!-- Important point to note is that, whatever value is provided in rate is smoothed out to 1 request per unit I.e 6pm means 1 request per 10sec, 10ps means 1 request per 100ms. Proxy will then not allow 2nd request within 10secs in first case and 100ms in 2nd case --> 
+  <Rate ref="flow_variable">rate[pm|ps]</Rate> 
+  <UseEffectiveCount>[false|true]</UseEffectiveCount> 
+</SpikeArrest> 
+```
+
+### ConcurrentrateLimit Policy (Will be deprecated) 
+
+* Used in target endpoint preflow to throttle requests to target servers. For example if multiple proxies are sending traffic to same targetendpoint. 
+
+### [Comaparing Rate Limiting Policies](https://docs.apigee.com/api-platform/develop/comparing-quota-spike-arrest-and-concurrent-rate-limit-policies)
 
 # Security 
 This is one of the biggest topic by far.   
@@ -213,6 +276,9 @@ Videos - https://docs.apigee.com/api-platform/security/oauth/oauth2-videos
 * XMLThreatProtection
 * SOAPMessageValidation
 
+# Custom Policy 
+
+# Callouts
 
 # TargetServers   
 
