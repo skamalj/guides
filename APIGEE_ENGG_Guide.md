@@ -50,10 +50,9 @@ The topics covered are :-
 * URL Design 
 * Coding standard and Fault handling 
 * Persistence vs Caching 
-* Callout, monitoring and Security and more.. 
-[OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)
-
-Understand [what is swagger](https://swagger.io/docs/specification/about/) and how it is related to OpenAPI 
+* Callout, monitoring and Security and more..     
+[OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md). Understand document structure in a good way.        
+Understand [what is swagger](https://swagger.io/docs/specification/about/) and how it is related to OpenAPI    
 
 # Basics 
 
