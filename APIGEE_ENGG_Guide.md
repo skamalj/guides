@@ -1,7 +1,10 @@
 # Courses and Documentation
 Link to Course - https://www.coursera.org/specializations/apigee-api-gcp   
 This is 3 course specialisation available on coursera,by no means it is comprehensive but it gets you started with APIGEE in a comfortable way.    
-      
+
+[4MVD](https://www.youtube.com/channel/UCQGLCTdXvBfdHLZlxoujZ5w)     
+This is a collection of 4 minute videos on youtube by APIGEE. All the videos which I refer below come from here.
+    
 In addition to the course, I went through official documentation available here - https://docs.apigee.com/api-platform/get-started/learn-edge    
 There are 3 sections which are important from exam point of view. 
 * Develop
@@ -9,7 +12,7 @@ There are 3 sections which are important from exam point of view.
 * Reference    
 You see these links in top bar. I am covering the links from Develop and Publish section in wiki below.    
      
-"Reference" section is absolutely important and in my view one cannot hope to pass the exam without  going through this.  All the policies which I refer below in the wiki, one should go through its reference documentation in this section and understand all the parameters and configurations involved. I give you example below for one of the policy "PopulateCache".     
+"Reference" section is absolutely important and in my view one cannot hope to pass the exam without  going through this.  All the policies which I refer below in the wiki, one should go through its reference documentation and understand all the parameters and configurations involved. I give you example below for one of the policy "PopulateCache".     
     
 Now for this policy, if you look at the structure below,  you should know 
 * what is "CacheKey"?
@@ -45,16 +48,11 @@ Now for this policy, if you look at the structure below,  you should know
 
 # API Design 
 
-Read [this page](https://docs.apigee.com/api-platform/fundamentals/best-practices-api-proxy-design-and-development) multiple times if required. It refers a book [The Missing Link](https://pages.apigee.com/web-api-design-register.html?int_source=docs&int_medium=website&int_campaign=ebook&int_content=web-api-design-missing-link). Read this book cover to cover. It covers API design in a really good way.   
-The topics covered are :- 
+Read [this page](https://docs.apigee.com/api-platform/fundamentals/best-practices-api-proxy-design-and-development) multiple times if required. It refers a book [The Missing Link](https://pages.apigee.com/web-api-design-register.html?int_source=docs&int_medium=website&int_campaign=ebook&int_content=web-api-design-missing-link). Read this book cover to cover. It covers following API desing topis:-       
 * URL Design 
 * Coding standard and Fault handling 
 * Persistence vs Caching 
-* Callout, monitoring and Security and more..     
-
-
-[OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md). Understand document structure in a good way.        
-Understand [what is swagger](https://swagger.io/docs/specification/about/) and how it is related to OpenAPI    
+* Callout, monitoring and Security and more.. 
 
 # Basics 
 
@@ -106,8 +104,8 @@ RaiseFault is a policy which is used in flows to raise errors based on condition
   </Response>
 ```  
 
-Use conditions when raising faults using Raisefault 
-Can be raised either in proxy endpoint or target endpoint 
+* Use conditions when raising faults using Raisefault     
+* This policy Can be raised either in proxy endpoint or target endpoint     
 
 ## FaultRules 
 
@@ -143,7 +141,7 @@ Can be raised either in proxy endpoint or target endpoint
 * * If set to true, policy will not enter error state and hence no faultrules wil be executed. 
 * * In this case next policy will be executed where application needs to handle the error using conditional policies 
 
-# All policies mentioned from this point onward need you to refer [reference](https://docs.apigee.com/api-platform/reference/policies/reference-overview-policy) section of the documentation page.
+## All policies mentioned from this point onward need you to refer "reference" section of the documentation page.
 
 # Mediation 
 
@@ -157,15 +155,10 @@ Shape and Convert Messages - https://docs.apigee.com/api-platform/develop/shapin
 # Caching 
 There are some nice videos on this topic and all are consolidated on [this page](https://docs.apigee.com/api-platform/cache/cache-videos), watch these.
 ### Policies
-* PopulateCache   
-> Policy sets populatecache.{policyname}.fault = "true"  and fault.name on failure.    
+* PopulateCache    
 * LookupCache    
-> Flowvariable – lookupcache.{policyname}.cachehit  is set to "true/false" based on the status of lookup.     
 > This should be first policy in the flow.  PopulateCache should then populate the cache based on lookup status, in addition to any other policy which needs to be executed to get the data (Ex. policy to get usertoken )   
 * InvalidateCache
-> If prefix is not specified it's value is obtained from "scope".    
-> If prefix is specified then it overwrites "scope"     
-> There is also cachecontext, which can be used to override appname and targetname, if cache is populated by other other API.   
 * ResponseCache
 > Concept to understand is that this policy allows request headers to override some of the policy parameters. 
 > If Expiry is set and "UseResponseCacheHeaders" is true, then minimum value from these two is used.    
@@ -180,6 +173,9 @@ There are some nice videos on this topic and all are consolidated on [this page]
 > [Creating KVM](https://docs.apigee.com/api-platform/cache/creating-and-editing-environment-keyvalue-maps)
 
 # Logging  
+[Log to Loggly Video](https://www.youtube.com/watch?v=xfURwVkAoyU)
+### Policy
+* MessageLogging
 
 # Rate Limiting and Quotas    
 
@@ -281,11 +277,26 @@ Videos - https://docs.apigee.com/api-platform/security/oauth/oauth2-videos
 * SOAPMessageValidation
 
 # Custom Policy 
+Video - https://www.youtube.com/watch?v=w_HDOgO8FEI
+### Policy
+* JavaScript
 
-# Callouts
+# Shared Flow and Flow Callout
+
+### [Overview Creating Shared Flow](https://docs.apigee.com/api-platform/fundamentals/shared-flows)
+### [Flow Hooks](https://docs.apigee.com/api-platform/fundamentals/flow-hooks)
+* Point to understand is that flow hooks execute for all proxies in an **environment**
+* Flow hooks are attached in pre-proxy, pre-target for request flow and post-proxy and post-target for response (total 4)
+### [Proxy Chaining](https://docs.apigee.com/api-platform/fundamentals/connecting-proxies-other-proxies)
+### Policy
+* FlowCallout
 
 # TargetServers   
 
 # Microgateway 
+### [Getting Started with EdgeMicrogateway](https://docs.apigee.com/api-platform/microgateway/3.1.5/setting-and-configuring-edge-microgateway#Cloud%20config)
+* This url embeds version in the path, so may change in future. In general, edge micro documentation is located at the bottom of "Develop" section in the documentation.
+* Policies available in "edge" are not available in edge micro-gateway, so any API defined with edge micro-gateway needs to utilize plugins available at micro-gateway.
+### [Using plugins with edge microgateway](https://docs.apigee.com/api-platform/microgateway/3.1.5/use-plugins)
 
 # API Products and Apps 
