@@ -304,4 +304,7 @@ Video - https://www.youtube.com/watch?v=w_HDOgO8FEI
 
 # Offline Development
 [get_token](https://docs.apigee.com/api-platform/system-administration/using-gettoken)
+
 [apigeetool](https://www.npmjs.com/package/apigeetool)
+
+[apiproxy directory structure](https://docs.apigee.com/api-platform/reference/api-proxy-configuration-reference)
