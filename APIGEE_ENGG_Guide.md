@@ -4,6 +4,7 @@ This is 3 course specialisation available on coursera,by no means it is comprehe
 
 [4MVD](https://www.youtube.com/channel/UCQGLCTdXvBfdHLZlxoujZ5w)     
 This is a collection of 4 minute videos on youtube by APIGEE. All the videos which I refer below come from here.
+
     
 In addition to the course, I went through official documentation available here - https://docs.apigee.com/api-platform/get-started/learn-edge    
 There are 3 sections which are important from exam point of view. 
@@ -300,3 +301,7 @@ Video - https://www.youtube.com/watch?v=w_HDOgO8FEI
 ### [Using plugins with edge microgateway](https://docs.apigee.com/api-platform/microgateway/3.1.5/use-plugins)
 
 # API Products and Apps 
+
+# Offline Development
+[get_token](https://docs.apigee.com/api-platform/system-administration/using-gettoken)
+[apigeetool](https://www.npmjs.com/package/apigeetool)
